@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Umrechner</title>
+</head>
+<body>
+    
+    <script src="script.js"></script>
+    
+    <div class="converter-container">
+        <h1>Währungsumrechner</h1>
+        
+        <!-- Eingabefeld für den Betrag in Euro -->
+        <label for="amount">Betrag in €:</label>
+        <input type="number" id="amount" placeholder="Gib den Betrag ein">
+        
+        <!-- Dropdown zur Auswahl der Währung -->
+        <label for="currency">In welche Währung umrechnen?</label>
+        <select id="currency">
+            <option value="GBP">GBP (Britisches Pfund)</option>
+            <option value="USD">$ (US-Dollar)</option>
+            <option value="JPY">¥ (Japanischer Yen)</option>
+        </select>
+        
+        <!-- Button zur Umrechnung -->
+        <button id="convert-btn">Umrechnen</button>
+
+        <!-- Ausgabebereich für das Ergebnis -->
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
