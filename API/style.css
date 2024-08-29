@@ -1,18 +1,23 @@
-font-family: Arial, sans-serif;
+body {
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    position: relative; /* Wichtig für die Positionierung des Kästchens */
 }
 
 .converter-container {
     background-color: #ffffff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     text-align: center;
+    max-width: 350px; /* Maximale Breite festlegen */
+    width: 100%;
+    margin: auto; /* Zentrieren */
 }
 
 h1 {
@@ -53,4 +58,18 @@ button:hover {
     font-size: 18px;
     font-weight: bold;
     color: #333;
+}
+
+/* Stil für das neue Kästchen unten rechts */
+.info-box {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #333;
+    text-align: center;
 }
