@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vokabel-Snake-Spiel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Vokabel-Snake-Spiel</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <!-- Vokabelabfrage-Overlay -->
+    <div id="vocabOverlay" class="hidden">
+        <h2>Vokabelabfrage</h2>
+        <p id="vocabQuestion"></p>
+        <input type="text" id="vocabAnswer" placeholder="Deine Antwort">
+        <button onclick="checkAnswer()">Überprüfen</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
