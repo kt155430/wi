@@ -12,11 +12,12 @@ let score = 0;
 
 // Vokabeln-Liste
 const vocabList = [
-    { english: "Sustainable", german: "Nachhaltig" },
-    { english: "Disposable", german: "Wegwerfbar" },
-    { english: "Illustrate", german: "Veranschaulichen" },
-    { english: "Emphasize", german: "Betonen" },
+    { english: "Sustainable", german: ["Nachhaltig", "Dauerhaft"] },
+    { english: "Disposable", german: ["Wegwerfbar", "Einweg"] },
+    { english: "Illustrate", german: ["Veranschaulichen", "Illustrieren", "Darstellen"] },
+    { english: "Emphasize", german: ["Betonen", "Hervorheben", "Unterstreichen"] },
 ];
+
 
 let currentVocab = null;
 
@@ -115,10 +116,15 @@ function collision(head, snakeArray) {
 
 function checkAnswer() {
     const userAnswer = vocabAnswer.value.trim().toLowerCase();
-    if (userAnswer === currentVocab.german.toLowerCase()) {
-        vocabOverlay.classList.add("hidden"); // Verstecke das Overlay
+    const possibleAnswers = currentVocab.german.map(ans => ans.toLowerCase());
+
+    if (possibleAnswers.includes(userAnswer)) {
+        // Richtig: Verstecke das Overlay und setze das Spiel fort
+        vocabOverlay.classList.add("hidden");
+        isPaused = false; // Fortsetzen des Spiels
     } else {
-        alert("Falsch! Spiel vorbei.");
+        // Falsch: Zeige "Spiel vorbei"
+        alert(`Falsch! Richtig wäre eine der folgenden Antworten: ${currentVocab.german.join(", ")}`);
         clearInterval(game);
     }
 }
