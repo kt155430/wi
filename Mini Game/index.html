@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vokabel-Snake-Spiel</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Vokabel-Snake-Spiel</h1>
+
+    <!-- Score und Leben -->
+    <div id="infoPanel">
+        <p id="scoreDisplay">Punkte: 0</p>
+        <p id="livesDisplay">Leben: 3</p>
+    </div>
+
+    <!-- Spielfeld -->
     <canvas id="gameCanvas" width="400" height="400"></canvas>
 
     <!-- Vokabelabfrage-Overlay -->

@@ -9,6 +9,9 @@ let food = {
 };
 let direction = null;
 let score = 0;
+let lives = 3; // Hinzugefügt: Lebenssystem
+let speed = 100; // Initialgeschwindigkeit
+let game; // Spielintervall
 
 // Vokabeln-Liste
 const vocabList = [
@@ -18,7 +21,6 @@ const vocabList = [
     { english: "Emphasize", german: ["Betonen", "Hervorheben", "Unterstreichen"] },
 ];
 
-
 let currentVocab = null;
 
 // Elemente für die Vokabelabfrage
@@ -26,6 +28,19 @@ const vocabOverlay = document.getElementById("vocabOverlay");
 const vocabQuestion = document.getElementById("vocabQuestion");
 const vocabAnswer = document.getElementById("vocabAnswer");
 
+// Hinzugefügt: Pop-up-Feedback
+const feedbackElement = document.createElement("div");
+feedbackElement.classList.add("feedback");
+document.body.appendChild(feedbackElement);
+
+function showFeedback(message, success = true) {
+    feedbackElement.textContent = message;
+    feedbackElement.style.backgroundColor = success ? "green" : "red";
+    feedbackElement.style.display = "block";
+    setTimeout(() => (feedbackElement.style.display = "none"), 2000);
+}
+
+// Steuerung
 document.addEventListener("keydown", setDirection);
 
 function setDirection(event) {
@@ -44,22 +59,23 @@ function draw() {
     if (vocabOverlay.classList.contains("hidden")) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Score anzeigen
+        // Score und Leben anzeigen
         ctx.fillStyle = "black";
         ctx.font = "20px Arial";
         ctx.fillText("Score: " + score, 10, 20);
+        ctx.fillText("Lives: " + lives, 10, 40);
 
-        // Zeichne die Schlange
+        // Schlange zeichnen
         for (let i = 0; i < snake.length; i++) {
-            ctx.fillStyle = (i === 0) ? "green" : "black";
+            ctx.fillStyle = i === 0 ? "green" : "black";
             ctx.fillRect(snake[i].x, snake[i].y, box, box);
         }
 
-        // Zeichne die Frucht
+        // Frucht zeichnen
         ctx.fillStyle = "red";
         ctx.fillRect(food.x, food.y, box, box);
 
-        // Bewegung der Schlange
+        // Bewegung
         let snakeX = snake[0].x;
         let snakeY = snake[0].y;
 
@@ -68,11 +84,14 @@ function draw() {
         if (direction === "RIGHT") snakeX += box;
         if (direction === "DOWN") snakeY += box;
 
-        // Überprüfung, ob die Schlange die Frucht isst
+        // Frucht essen
         if (snakeX === food.x && snakeY === food.y) {
             score++;
+            speed = Math.max(50, speed - 5); // Geschwindigkeit erhöhen
+            clearInterval(game);
+            game = setInterval(draw, speed);
 
-            // Zeige Vokabelabfrage
+            // Vokabelabfrage starten
             currentVocab = vocabList[Math.floor(Math.random() * vocabList.length)];
             vocabQuestion.textContent = `Was heißt "${currentVocab.english}" auf Deutsch?`;
             vocabAnswer.value = "";
@@ -84,21 +103,28 @@ function draw() {
                 y: Math.floor(Math.random() * 19 + 1) * box,
             };
         } else {
-            snake.pop(); // Entferne das letzte Element, wenn keine Frucht gegessen wurde
+            snake.pop();
         }
 
-        // Neue Position für den Kopf der Schlange
+        // Neue Position
         let newHead = { x: snakeX, y: snakeY };
 
-        // Überprüfe auf Kollision
+        // Kollision prüfen
         if (
-            snakeX < 0 || snakeY < 0 ||
-            snakeX >= canvas.width || snakeY >= canvas.height ||
+            snakeX < 0 ||
+            snakeY < 0 ||
+            snakeX >= canvas.width ||
+            snakeY >= canvas.height ||
             collision(newHead, snake)
         ) {
-            alert("Spiel vorbei!");
-            clearInterval(game);
-            return;
+            lives--;
+            if (lives === 0) {
+                alert("Spiel vorbei!");
+                clearInterval(game);
+                return;
+            }
+            snake = [{ x: 9 * box, y: 10 * box }];
+            direction = null;
         }
 
         snake.unshift(newHead);
@@ -116,17 +142,22 @@ function collision(head, snakeArray) {
 
 function checkAnswer() {
     const userAnswer = vocabAnswer.value.trim().toLowerCase();
-    const possibleAnswers = currentVocab.german.map(ans => ans.toLowerCase());
+    const possibleAnswers = currentVocab.german.map((ans) => ans.toLowerCase());
 
     if (possibleAnswers.includes(userAnswer)) {
-        // Richtig: Verstecke das Overlay und setze das Spiel fort
         vocabOverlay.classList.add("hidden");
-        isPaused = false; // Fortsetzen des Spiels
+        showFeedback("Richtig!", true);
     } else {
-        // Falsch: Zeige "Spiel vorbei"
-        alert(`Falsch! Richtig wäre eine der folgenden Antworten: ${currentVocab.german.join(", ")}`);
-        clearInterval(game);
+        showFeedback(
+            `Falsch! Richtig wäre: ${currentVocab.german.join(", ")}`,
+            false
+        );
+        lives--;
+        if (lives === 0) {
+            clearInterval(game);
+        }
     }
 }
 
-let game = setInterval(draw, 100);
+// Spiel starten
+game = setInterval(draw, speed);

@@ -68,3 +68,61 @@ button {
 button:hover {
     background-color: #ff4f41;
 }
+/* Hinzugefügt: Pop-up-Feedback */
+.feedback {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    z-index: 110;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    10%, 90% {
+        opacity: 1;
+    }
+}
+
+/* Responsive Canvas */
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Animation fürs Overlay */
+#vocabOverlay {
+    animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+/* Info-Panel */
+#infoPanel {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+#scoreDisplay, #livesDisplay {
+    font-weight: bold;
+}
