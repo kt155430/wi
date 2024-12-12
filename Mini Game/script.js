@@ -19,6 +19,17 @@ const vocabList = [
     { english: "Disposable", german: ["Wegwerfbar", "Einweg"] },
     { english: "Illustrate", german: ["Veranschaulichen", "Illustrieren", "Darstellen"] },
     { english: "Emphasize", german: ["Betonen", "Hervorheben", "Unterstreichen"] },
+    { english: "Occasionally", german: ["hin und wieder", "gelegentlich"] },
+    { english: "Decade", german: ["Jahrzehnt"] },
+    { english: "aisle", german: ["Gang"] },
+    { english: "Column", german: ["Spalte"] },
+    { english: "increase", german: ["erhöhen", "ansteigen", "steigen"] },
+    { english: "delay", german: ["verschieben", "Verspätung"] },
+    { english: "refund", german: ["Rückerstattung"] },
+    { english: "tax", german: ["Steuer"] },
+    { english: "interest", german: ["Zins", "Zinsen"] },
+    { english: "mortgage", german: ["Hypothek"] },
+    { english: "loan", german: ["Darlehen", "Kredit", "Anleihe"] }
 ];
 
 let currentVocab = null;
