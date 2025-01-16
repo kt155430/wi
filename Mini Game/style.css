@@ -68,7 +68,43 @@ button {
 button:hover {
     background-color: #ff4f41;
 }
-/* Hinzugefügt: Pop-up-Feedback */
+
+/* Neustart-Overlay */
+#restartOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 2px solid #ff6f61;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 150;
+    animation: scaleIn 0.3s ease-out;
+}
+
+#restartOverlay h2 {
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+#restartOverlay button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6f61;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#restartOverlay button:hover {
+    background-color: #ff4f41;
+}
+
+/* Pop-up-Feedback */
 .feedback {
     position: absolute;
     top: 10%;
@@ -100,7 +136,7 @@ canvas {
 }
 
 /* Animation fürs Overlay */
-#vocabOverlay {
+#vocabOverlay, #restartOverlay {
     animation: scaleIn 0.3s ease-out;
 }
 
@@ -114,6 +150,7 @@ canvas {
         opacity: 1;
     }
 }
+
 /* Info-Panel */
 #infoPanel {
     display: flex;
